@@ -1,117 +1,208 @@
-var config = {
-    // style: 'mapbox://styles/mapbox/streets-v12',
-    // leave commented to use Mapbox Standard Style
-    accessToken: 'YOUR_MAPBOX_ACCESS_TOKEN',
-    showMarkers: true,
-    markerColor: '#3FB1CE',
-    //projection: 'equirectangular',
-    //Read more about available projections here
-    //https://docs.mapbox.com/mapbox-gl-js/example/projections/
-    inset: true,
-    insetOptions: {
-        markerColor: 'orange'
+let config = {
+  
+    accessToken: 'pk.eyJ1IjoiZ2ltYmVsc2YiLCJhIjoiY212aW9kdTUyMDhsNDJ5b2VmcjVxMTk2NyJ9.cbg06qGXygvpOwkj0SoFOA',
+   
+style: "mapbox://styles/gimbelsf/cmviox42o00rz01rvbbkz0hez",
+
+showMarkers: false, 
+theme: "light",
+title: "The Dangers of Being a Neotropical Migrant",
+subtitle: "Neotropical birds face lots of obstacles as they migrate from South America to North America",
+use3dTerrain: true,
+chapters: [
+
+{ 
+
+id: "earth",
+alignment: "left",
+title: "Neotropical Migrants",
+description: "neotropical migrants are birds that breed in the United States and Canada during the summer and migrate to the Neotropics (Mexico, Central America, South America, and the Caribbean) for the winter. This large group includes warblers, tanagers, and orioles. Roughly 340 to 360 species fall into this category, making up about half of all bird species that breed in North America. <b/><b>Let's look at a hypothetical species.<b/>",
+
+"image": 'images/birds.png', 
+location: {
+
+center: [-80.5, 20],
+zoom: 2,
+pitch: 0,
+bearing: 0,
+
+
+},
+mapAnimation: "flyTo",
+onChapterEnd: [
+
+{ layer: 'breeding-range', opacity: 0 },
+{ layer: 'winter-range', opacity: 0 },
+{ layer: 'migration-route', opacity: 0 },
+
+
+]
+
+
+},
+{
+
+        id: 'breeding-range',
+        alignment: 'right',
+        title: 'Breeding Range',
+        description: 'During the summer, our hypothetical neotropical migrant breeds across eastern Canada, where long days and abundant insects provide the food needed to raise young.',
+        location: {
+            center: [-70, 49.88223],
+            zoom: 3,
+            pitch: 0,
+            bearing: 0,
+        },
+        mapAnimation: 'flyTo',
+        onchapterEnter: [
+
+            { layer: 'breeding-range', opacity: 0.6, duration: 800 }
+
+
+        ]
+
+},
+
+{
+        id: 'winter-range',
+        alignment: 'left',
+        title: 'Winter Range',
+        description: 'When the breeding season ends, the bird returns to its winter range in southern Central America and northern South America, where warmer conditions provide food throughout the colder months.',
+        location: {
+            center: [-74.87590, 8.69840],
+            zoom: 3,
+            pitch: 0,
+            bearing: 0
+        },
+        mapAnimation: 'flyTo',
+        onChapterEnter: [
+        { layer: 'breeding-range', opacity: 0, duration: 800 },
+        { layer: 'winter-range', opacity: 0.6, duration: 800 }
+        ]
+},
+
+
+{
+        id: 'migration',
+        alignment: 'left',
+        title: 'Migration Routes',
+        description: 'Neotropical migrants generally travel north through one of three broad pathways: over land through Mexico, across the Gulf of Mexico, or along the Caribbean islands. Our hypothetical bird follows the trans-Gulf route.',
+        location: {
+            center: [-90.94332, 16.37613],
+            zoom: 3,
+            pitch: 0,
+            bearing: 0
+        },
+        mapAnimation: 'flyTo',
+        onChapterEnter: [
+            { layer: 'winter-range', opacity: 0 },
+            { layer: 'migration-route', opacity: 0.9, duration: 800 }
+        ]
+},
+{
+    id: 'gulf-crossing',
+    alignment: 'right',
+    title: 'Yucatan Peninsula',
+    description: 'Before attempting the Gulf crossing, the bird stops on the Yucatán Peninsula to rest and feed. The energy stored here may have to sustain it through hundreds of miles of flight over open water.',
+    location: {
+        center: [-89.18087, 24.08749],
+        zoom: 6.84,
+        pitch: 79.50,
+        bearing: 0
     },
-    insetPosition: 'bottom-right',
-    theme: 'dark',
-    use3dTerrain: false, //set true for enabling 3D maps.
-    auto: false,
-    title: 'Your Title Goes Here',
-    subtitle: 'The Storytelling Template helps you create an awesome animated map story with ease.',
-    byline: 'By a I.M. Amapper',
-    footer: 'Source: source citations, etc. <br> Created using <a href="https://github.com/mapbox/storytelling" target="_blank">Mapbox Storytelling</a> template.',
-    chapters: [
-        {
-            id: 'slug-style-id',
-            alignment: 'left',
-            hidden: false,
-            title: 'San Francisco',
-            image: './assets/san-fran.jpeg',
-            description: 'The first chapter contains a title, image, and camera view for San Francisco, California. Update the chapter data to make it your own.',
-            location: {
-                center: [-122.418398, 37.759483],
-                zoom: 8.5,
-                pitch: 60,
-                bearing: 0
-            },
-            mapAnimation: 'flyTo',
-            rotateAnimation: false,
-            callback: '',
-            onChapterEnter: [
-                // {
-                //     layer: 'layer-name',
-                //     opacity: 1,
-                //     duration: 5000
-                // }
-            ],
-            onChapterExit: [
-                // {
-                //     layer: 'layer-name',
-                //     opacity: 0
-                // }
-            ]
-        },
-        {
-            id: 'second-identifier',
-            alignment: 'right',
-            hidden: false,
-            title: 'Washington, D.C.',
-            image: './assets/washington-dc.jpg',
-            description: 'The second chapter flies to Washington, D.C., updates the camera pitch, and slowly rotates. <br>  <br> Washington, D.C., the capital of the United States, is a vibrant city known for its iconic landmarks, including the White House, the U.S. Capitol, and the Washington Monument. It serves as the political heart of the nation and a center for history, culture, and international diplomacy.',
-            location: {
-                center: [-77.020636, 38.886900],
-                zoom: 8.5,
-                pitch: 60,
-                bearing: -43.2,
-                // flyTo additional controls-
-                // These options control the flight curve, making it move
-                // slowly and zoom out almost completely before starting
-                // to pan.
-                //speed: 2, // make the flying slow
-                //curve: 1, // change the speed at which it zooms out
-            },
-            mapAnimation: 'flyTo',
-            rotateAnimation: true,
-            callback: '',
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'third-identifier',
-            alignment: 'left',
-            hidden: false,
-            title: 'Geneva',
-            image: './assets/geneva.jpg',
-            description: 'Geneva, Switzerland, is a picturesque city nestled along the shores of Lake Geneva, surrounded by the Alps and Jura mountains. Known as a global hub for diplomacy and finance, it is home to numerous international organizations, including the United Nations and the Red Cross.',
-            location: {
-                center: [6.15116, 46.20595],
-                zoom: 12.52,
-                pitch: 8.01,
-                bearing: 0.00
-            },
-            mapAnimation: 'flyTo',
-            rotateAnimation: false,
-            callback: '',
-            onChapterEnter: [],
-            onChapterExit: []
-        },
-        {
-            id: 'fourth-chapter',
-            alignment: 'fully',
-            hidden: false,
-            title: 'Buenos Aires',
-            image: './assets/buenos-aires.jpg',
-            description: 'Buenos Aires, the capital of Argentina, is a dynamic city known for its European-inspired architecture, vibrant tango culture, and rich culinary scene. Often called the "Paris of South America," it blends historic charm with modern energy.  You can add as many chapters as you need, just copy the JSON data and make changes.',
-            location: {
-                center: [-58.54195, -34.71600],
-                zoom: 4,
-                pitch: 0,
-                bearing: 0
-            },
-            mapAnimation: 'flyTo',
-            rotateAnimation: false,
-            callback: '',
-            onChapterEnter: [],
-            onChapterExit: []
-        }
+    mapAnimation: 'flyTo',
+    onChapterEnter: [
+        { layer: 'migration-route', opacity: 0 }
     ]
-};
+},
+{
+    id: 'gulf',
+    alignment: 'left',
+    title: 'Across the Gulf',
+    description: 'The bird leaves the Yucatán and begins a nonstop flight across the Gulf of Mexico. With nowhere to land, it must continue until it reaches the northern Gulf Coast, making weather and wind conditions especially important.',
+    location: {
+        center: [-84.59217, 31.83162],
+        zoom: 6.84,
+        pitch: 70,
+        bearing: 15,
+        speed: 0.2,
+    },
+    mapAnimation: 'flyTo'
+},
+
+{
+        id: 'atlanta',
+        alignment: 'right',
+        title: 'Buildings',
+        description: 'After reaching land, the bird encounters a different kind of danger. Glass, artificial light, and dense groups of buildings can confuse migrating birds and lead to fatal collisions, especially during nighttime migration.',
+        
+        location: {
+            center: [-84.38977916429899,33.757302321064735],
+            zoom: 17,
+            pitch: 80,
+            bearing: 0
+        },
+        mapAnimation: 'flyTo',
+        rotateAnimation: true,
+        onChapterEnter: []
+},
+
+{
+        id: 'mountain-terrain',
+        alignment: 'left',
+        title: 'Mountains',
+        description: 'Farther north, the bird must cross mountainous terrain. Cold temperatures, storms, and limited food can slow migration and force birds to spend more time searching for safe places to rest and refuel.',
+        location: {
+            center: [-82.26510, 35.76484],
+            zoom: 14.83,
+            pitch: 79.47,
+            bearing: 0,
+            duration: 5000
+        },
+        mapAnimation: 'flyTo'
+},
+
+{
+        id: 'breeding-range2',
+        alignment: 'right',
+        title: 'Breeding Range',
+        description: 'After surviving the journey, the bird reaches its breeding range in eastern Canada. It will spend the summer establishing territory, finding a mate, and raising young before migration begins again.',
+        location: {
+            center: [-70, 49.88223],
+            zoom: 5,
+            pitch: 0,
+            bearing: 0
+        },
+        mapAnimation: 'flyTo',
+        onChapterEnter: [
+            { layer: 'breeding-range', opacity: 0.6, duration: 800 }
+        ]
+},
+
+{
+        id: 'breeding-range3',
+        alignment: 'right',
+        title: 'Fall Migration',
+        description: 'As summer ends, the bird turns south and retraces the long journey toward its winter range. The return trip brings many of the same hazards, meaning this migration cycle must be survived twice each year.',
+        location: {
+            center: [-70, 20],
+            zoom: 3,
+            pitch: 0,
+            bearing: 180
+        },
+        mapAnimation: 'flyTo',
+        onChapterEnter: [
+            { layer: 'breeding-range', opacity: 0, duration: 800 },
+            { layer: 'winter-range', opacity: 0.6, duration: 800 }
+        ]
+}
+
+
+
+
+
+]
+
+
+
+
+        }
